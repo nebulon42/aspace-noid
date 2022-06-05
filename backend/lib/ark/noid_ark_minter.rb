@@ -21,7 +21,7 @@ class NoidArkMinter < ArkMinter
       ark_shoulder = shoulder_for_repo(obj.repo_id)
       ark_template = template_for_repo(obj.repo_id)
 
-      template = Noid::Template.new(ark_shoulder + ark_template)
+      template = Noid::Template.new("#{ark_shoulder}#{ark_template}")
       recognized = template.valid?(match[1])
     end
     recognized
@@ -50,7 +50,7 @@ class NoidArkMinter < ArkMinter
     minter = read_minter_state(repo_id, ark_template)
     if minter == nil
       # att: ignores AppConfig[:ark_shoulder_delimiter] setting
-      minter = Noid::Minter.new(template: ark_shoulder + ark_template)
+      minter = Noid::Minter.new(template: "#{ark_shoulder}#{ark_template}")
     end
     # this raises an exception if the sequence pool is exhausted
     # we might want to check this and do something about it
